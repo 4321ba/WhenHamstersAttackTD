@@ -6,6 +6,8 @@ var enemy_infantery_scene = preload("res://scenes/enemies/infantery.tscn")
 var enemy_tank_scene = preload("res://scenes/enemies/tank.tscn")
 var enemy_vtb_scene = preload("res://scenes/enemies/vtb.tscn")
 
+var is_win = false
+
 # Character Key:
 # 'i' = Infantry (Standard)
 # 't' = Tank (Slow, High HP)
@@ -89,7 +91,10 @@ func _process_break(delta: float) -> void:
 	break_timer -= delta
 	
 	# Allow player to skip break by pressing Space (ui_accept)
+	# logic: if the user explicitly pressed space, or is holding space and the previous turn is fully over
 	if Input.is_action_just_pressed("ui_accept"):
+		break_timer = 0.0
+	if Input.is_action_pressed("ui_accept") and get_tree().get_nodes_in_group("enemies").is_empty():
 		break_timer = 0.0
 		
 	if break_timer <= 0:
@@ -106,12 +111,13 @@ func start_break():
 	is_in_break = true
 	break_timer = break_time
 	print("--- Break Started --- Press SPACE to skip. Next Round: ", current_round + 1)
-
-func start_next_round():
+	
 	if current_round >= rounds.size():
 		print("All rounds completed! You win!")
+		is_win = true
 		set_physics_process(false)
-		return
+
+func start_next_round():
 		
 	is_in_break = false
 	current_wave_string = rounds[current_round]

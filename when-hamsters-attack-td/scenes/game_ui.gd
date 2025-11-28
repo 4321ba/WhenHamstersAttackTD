@@ -2,12 +2,15 @@ extends ColorRect
 
 # References
 @onready var tower_placer = get_node("/root/MainScene/TowerPlacer")
-
+@onready var enemy_spawner = $"/root/MainScene/EnemySpawner"
 # UI Elements
 @onready var health_label: Label = $MarginContainer/VBoxContainer/LabelHBox/HealthLabel
 @onready var money_label: Label = $MarginContainer/VBoxContainer/LabelHBox/MoneyLabel
 @onready var wave_label: Label = $MarginContainer/VBoxContainer/LabelHBox/WaveLabel
 @onready var tower_hbox = $MarginContainer/VBoxContainer/TowerHBox
+@onready var dwmenu = $MarginContainer/VBoxContainer/Control/DeathWinMenu
+@onready var golabel = $MarginContainer/VBoxContainer/Control/DeathWinMenu/GameOverLabel
+
 var tower_containers: Array[SubViewportContainer] = []
 
 func _ready() -> void:
@@ -17,19 +20,46 @@ func _ready() -> void:
 			var container = _create_3d_preview(tower_placer.tower_scenes[i])
 			tower_hbox.add_child(container)
 			tower_containers.append(container)
+	
+	update_gui()
 
 func _process(_delta: float) -> void:
 	# --- AUTO-UPDATE LOGIC ---
 	# We poll the data every frame. This decouples UI from Game Logic perfectly.
+	update_gui()
+	if is_processing(): # if we didn't lose or win yet
+		if Input.is_action_just_pressed("ui_cancel"):
+			if dwmenu.visible:
+				color = Color(0.122, 0.106, 0.039, 0.459)
+				create_tween().tween_property(self, "color", Color(0.122, 0.106, 0.039, 0.0), 0.4)
+			else:
+				color = Color(0.122, 0.106, 0.039, 0.0)
+				create_tween().tween_property(self, "color", Color(0.122, 0.106, 0.039, 0.459), 0.4)
+			dwmenu.visible = not dwmenu.visible
 	
+func update_gui():
 	# 1. Update Text
 	if HealthAndMoney.i:
-		health_label.text = "❤️ " + str(HealthAndMoney.i.health)#"❤️ " + 
+		health_label.text = "❤️ " + str(HealthAndMoney.i.health)
 		money_label.text = str(HealthAndMoney.i.money) + " 🪙"
 		if HealthAndMoney.i.is_game_over:
-			$MarginContainer/VBoxContainer/Control/GameOverLabel.visible = true
-			color = Color(0.396, 0.012, 0.016, 0.251)
-	wave_label.text = "Wave " + str($"/root/MainScene/EnemySpawner".current_round + 1)
+			dwmenu.visible = true
+			color = Color(0.396, 0.012, 0.016, 0.0)
+			create_tween().tween_property(self, "color", Color(0.396, 0.012, 0.016, 0.251), 0.4)
+			golabel.visible = true
+			mouse_filter = Control.MOUSE_FILTER_STOP
+			set_process(false)
+		if enemy_spawner.is_win:
+			dwmenu.visible = true
+			color = Color(0.012, 0.396, 0.016, 0.0)
+			create_tween().tween_property(self, "color", Color(0.012, 0.396, 0.016, 0.251), 0.4)
+			golabel.text = "You Win!"
+			golabel.label_settings.font_color = Color(0.012, 0.396, 0.016, 1.0)
+			golabel.visible = true
+			mouse_filter = Control.MOUSE_FILTER_STOP
+			set_process(false)
+			
+	wave_label.text = "Wave " + str(enemy_spawner.current_round + 1)
 	
 	# 2. Update Tower Selection Highlight
 	if tower_placer:
@@ -77,10 +107,9 @@ func _create_3d_preview(scene: PackedScene) -> SubViewportContainer:
 	return svc
 
 
-"""
-TODO
-animáció
-main menü
-particleök
-post processing
-"""
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+
+func _on_restart_button_pressed() -> void:
+	get_tree().reload_current_scene()
