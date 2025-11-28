@@ -1,0 +1,30 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="WhenHamstersAttackTD"
+run/main_scene="uid://dccpnvupcvwcs"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[global_group]
+
+enemies=""
+
+[navigation]
+
+3d/default_cell_height=0.05
+3d/default_edge_connection_margin=0.52

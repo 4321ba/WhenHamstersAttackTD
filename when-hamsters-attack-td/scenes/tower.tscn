@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbb34kgqlgqf6"]
+
+[ext_resource type="Script" uid="uid://c0wdtmnoufn2y" path="res://scenes/tower.gd" id="1_ay4al"]
+[ext_resource type="Texture2D" uid="uid://b543joxavdfn" path="res://models/Textures/Units_Red.png" id="2_ktxwe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qrbg1"]
+albedo_texture = ExtResource("2_ktxwe")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ay4al"]
+size = Vector3(2, 0.5, 2)
+
+[node name="Tower" type="Node3D"]
+script = ExtResource("1_ay4al")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_qrbg1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_ay4al")
+
+[connection signal="input_event" from="StaticBody3D" to="." method="_on_static_body_3d_input_event"]
+[connection signal="mouse_entered" from="StaticBody3D" to="." method="_on_static_body_3d_mouse_entered"]
+[connection signal="mouse_exited" from="StaticBody3D" to="." method="_on_static_body_3d_mouse_exited"]
