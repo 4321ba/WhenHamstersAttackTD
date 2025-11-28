@@ -13,6 +13,7 @@ id = 1
 shooting_range = 7.3
 fire_rate = 0.7
 damage = 10
+is_aoe = true
 turret_visuals = NodePath("MeshInstance3D/MeshInstance3D")
 
 [node name="MeshInstance3D" parent="." index="0"]

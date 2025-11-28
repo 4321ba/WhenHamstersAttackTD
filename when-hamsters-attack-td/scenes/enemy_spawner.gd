@@ -81,7 +81,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("ui_focus_next"):
 		Engine.time_scale = 1.0
 	
-	
+	if current_round >= rounds.size() and get_tree().get_nodes_in_group("enemies").is_empty():
+		print("All rounds completed! You win!")
+		is_win = true
+		set_physics_process(false)
+		
 	if is_in_break:
 		_process_break(delta)
 	else:
@@ -111,13 +115,11 @@ func start_break():
 	is_in_break = true
 	break_timer = break_time
 	print("--- Break Started --- Press SPACE to skip. Next Round: ", current_round + 1)
-	
-	if current_round >= rounds.size():
-		print("All rounds completed! You win!")
-		is_win = true
-		set_physics_process(false)
 
 func start_next_round():
+	if current_round >= rounds.size():
+		print("No more waves, waiting for enemies to perish.")
+		return
 		
 	is_in_break = false
 	current_wave_string = rounds[current_round]

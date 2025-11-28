@@ -9,8 +9,9 @@ albedo_texture = ExtResource("2_ktxwe")
 [sub_resource type="BoxShape3D" id="BoxShape3D_ay4al"]
 size = Vector3(2, 0.5, 2)
 
-[node name="Tower" type="Node3D"]
+[node name="Tower" type="Node3D" node_paths=PackedStringArray("turret_visuals")]
 script = ExtResource("1_ay4al")
+turret_visuals = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_qrbg1")
