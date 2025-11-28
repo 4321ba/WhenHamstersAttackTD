@@ -5,10 +5,11 @@
 [ext_resource type="ArrayMesh" uid="uid://dhdyfr3xbfbam" path="res://models/Units/OBJ/VTB/VTB-1.obj" id="3_kry8n"]
 [ext_resource type="ArrayMesh" uid="uid://c0lx2psenkgfj" path="res://models/Units/OBJ/VTB/VTB-2.obj" id="4_1pf27"]
 
-[node name="Enemy" instance=ExtResource("1_lxcye")]
+[node name="Enemy" node_paths=PackedStringArray("heads_to_bob") instance=ExtResource("1_lxcye")]
 speed = 2.5
 max_health = 120.0
 damage_when_achieved_goal = 3
+heads_to_bob = [NodePath("MeshInstance3D/MeshInstance3D"), NodePath("MeshInstance3D/MeshInstance3D2")]
 
 [node name="MeshInstance3D" parent="." index="0"]
 mesh = ExtResource("2_mgb2o")

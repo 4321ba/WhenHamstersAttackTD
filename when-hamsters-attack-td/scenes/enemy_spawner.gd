@@ -15,6 +15,7 @@ var is_win = false
 # ' ' = Wait (Delay)
 
 var rounds: Array[String] = [
+	"i v t",
 	# --- PHASE 1: RECRUITMENT (Rounds 1-5) ---
 	"i   i   i   i   i",                  # Round 1: Intro (50 Total HP)
 	"i i i i i i",                         # Round 2: Tighter spacing
@@ -77,7 +78,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_focus_next"):
-		Engine.time_scale = 4.0
+		Engine.time_scale = 0.25#4.0
 	if Input.is_action_just_released("ui_focus_next"):
 		Engine.time_scale = 1.0
 	

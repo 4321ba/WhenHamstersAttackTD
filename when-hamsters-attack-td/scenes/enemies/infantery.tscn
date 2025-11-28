@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://444yk5an5o40"]
+[gd_scene load_steps=4 format=3 uid="uid://444yk5an5o40"]
 
 [ext_resource type="PackedScene" uid="uid://dxwtrm8kv41cy" path="res://scenes/enemy.tscn" id="1_omfc3"]
-[ext_resource type="ArrayMesh" uid="uid://cfpbwfdvijoge" path="res://models/Units/OBJ/Infantery/Infantery-0.obj" id="2_7ayth"]
+[ext_resource type="ArrayMesh" uid="uid://dtd6srna6thgk" path="res://models/Units/hamster_body.obj" id="2_7ayth"]
+[ext_resource type="ArrayMesh" uid="uid://bnuqecxp5ja1o" path="res://models/Units/hamster_legs.obj" id="3_15bfx"]
 
-[node name="Enemy" instance=ExtResource("1_omfc3")]
+[node name="Enemy" node_paths=PackedStringArray("body_to_bob", "legs") instance=ExtResource("1_omfc3")]
 speed = 4.0
+body_to_bob = NodePath("MeshInstance3D")
+legs = NodePath("MeshInstance3D/MeshInstance3D")
 
 [node name="MeshInstance3D" parent="." index="0"]
 mesh = ExtResource("2_7ayth")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" index="0"]
+mesh = ExtResource("3_15bfx")
