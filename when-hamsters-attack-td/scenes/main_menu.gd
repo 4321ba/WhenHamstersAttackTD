@@ -56,3 +56,13 @@ func _on_play_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_return_button_pressed() -> void:
+	$CanvasLayer/ColorRect/ControlsContainer.visible = false
+	$CanvasLayer/ColorRect/VBoxContainer.visible = true
+
+
+func _on_controls_button_pressed() -> void:
+	$CanvasLayer/ColorRect/ControlsContainer.visible = true
+	$CanvasLayer/ColorRect/VBoxContainer.visible = false

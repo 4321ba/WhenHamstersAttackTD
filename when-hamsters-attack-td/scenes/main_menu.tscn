@@ -54,6 +54,10 @@ theme_override_constants/separation = 10
 layout_mode = 2
 text = "Play"
 
+[node name="ControlsButton" type="Button" parent="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Controls"
+
 [node name="QuitButton" type="Button" parent="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
@@ -78,5 +82,112 @@ button_pressed = true
 text = "Sound Effects
 "
 
+[node name="ControlsContainer" type="VBoxContainer" parent="CanvasLayer/ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -253.0
+offset_top = -165.5
+offset_right = 253.0
+offset_bottom = 165.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ControlsLabel" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer"]
+layout_mode = 2
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="CanvasLayer/ColorRect/ControlsContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ColorRect/ControlsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="ControlsLabel2" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Move Camera"
+horizontal_alignment = 2
+
+[node name="ControlsLabel3" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Arrows"
+
+[node name="ControlsLabel4" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Select Tower"
+horizontal_alignment = 2
+
+[node name="ControlsLabel5" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "1, 2 and 3"
+
+[node name="ControlsLabel6" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Place Tower"
+horizontal_alignment = 2
+
+[node name="ControlsLabel7" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Left Click"
+
+[node name="ControlsLabel8" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Sell Tower"
+horizontal_alignment = 2
+
+[node name="ControlsLabel9" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Right Click"
+
+[node name="ControlsLabel10" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Open Menu"
+horizontal_alignment = 2
+
+[node name="ControlsLabel11" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Escape"
+
+[node name="ControlsLabel12" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Fast Forward"
+horizontal_alignment = 2
+
+[node name="ControlsLabel13" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Tab"
+
+[node name="ControlsLabel14" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Start Wave"
+horizontal_alignment = 2
+
+[node name="ControlsLabel15" type="Label" parent="CanvasLayer/ColorRect/ControlsContainer/GridContainer"]
+layout_mode = 2
+text = "Space"
+
+[node name="Control2" type="Control" parent="CanvasLayer/ColorRect/ControlsContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ReturnButton" type="Button" parent="CanvasLayer/ColorRect/ControlsContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Return"
+
 [connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ColorRect/ControlsContainer/ReturnButton" to="." method="_on_return_button_pressed"]
