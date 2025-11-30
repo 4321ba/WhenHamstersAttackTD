@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://2bhq62kuxc3c"]
+[gd_scene load_steps=10 format=3 uid="uid://2bhq62kuxc3c"]
 
 [ext_resource type="Script" uid="uid://wk6x8nvek18d" path="res://scenes/explosion.gd" id="1_17npe"]
+[ext_resource type="AudioStream" uid="uid://bbmxenoeopoi1" path="res://sounds/explosion.ogg" id="2_nfeox"]
 
 [sub_resource type="Gradient" id="Gradient_17npe"]
 offsets = PackedFloat32Array(0, 0.14519332, 0.34271276, 0.511807, 0.84586865, 1)
@@ -51,3 +52,7 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_17npe")
 draw_pass_1 = SubResource("BoxMesh_17npe")
 script = ExtResource("1_17npe")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_nfeox")
+bus = &"Sfx"

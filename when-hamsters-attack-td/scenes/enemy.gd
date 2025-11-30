@@ -96,6 +96,7 @@ func die():
 		tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 		tween.tween_property(mesh_to_animate, "position:y", mesh_to_animate.position.y - 2.0, 0.5)
 	else:
+		$AudioStreamPlayer3D.play()
 		# Optional: Use EASE_IN for the fall to make it feel heavy
 		#tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 		#tween.tween_property(mesh_to_animate, "rotation:z", deg_to_rad(-90), 0.3)
@@ -120,8 +121,8 @@ func die():
 		tween.chain().tween_property(mesh_to_animate, "position:y", mesh_to_animate.position.y - 1.0, 0.2)
 		
 	
-	tween.finished.connect(queue_free)
-	#await get_tree().create_timer(0.5).timeout
+	tween.finished.connect(queue_free) # audio finishes before this
+	#await get_tree().create_timer(1.0).timeout
 	#queue_free()
 
 

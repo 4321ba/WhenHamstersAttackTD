@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxwtrm8kv41cy"]
+[gd_scene load_steps=13 format=3 uid="uid://dxwtrm8kv41cy"]
 
 [ext_resource type="Script" uid="uid://dkxttr3gyltx3" path="res://scenes/enemy.gd" id="1_md0e3"]
+[ext_resource type="AudioStream" uid="uid://b0t3iwm6h2l7b" path="res://sounds/death.ogg" id="2_md0e3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8tegq"]
 
@@ -75,6 +76,10 @@ one_shot = true
 explosiveness = 0.9
 process_material = SubResource("ParticleProcessMaterial_7p1mj")
 draw_pass_1 = SubResource("BoxMesh_md0e3")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_md0e3")
+bus = &"Sfx"
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

@@ -190,4 +190,6 @@ text = "Return"
 [connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="toggled" from="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/MusicCheckButton" to="." method="_on_music_check_button_toggled"]
+[connection signal="toggled" from="CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/SfxCheckButton" to="." method="_on_sfx_check_button_toggled"]
 [connection signal="pressed" from="CanvasLayer/ColorRect/ControlsContainer/ReturnButton" to="." method="_on_return_button_pressed"]

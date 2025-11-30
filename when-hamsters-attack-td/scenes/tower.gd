@@ -140,6 +140,7 @@ func _shoot(target: Node3D):
 				enemy.take_damage(damage * (AOE_RANGE - dist_to_target) / AOE_RANGE)
 			
 	particles.restart()
+	$AudioStreamPlayer3D.play()
 	
 	if impact_effect:
 		var impact = impact_effect.instantiate()

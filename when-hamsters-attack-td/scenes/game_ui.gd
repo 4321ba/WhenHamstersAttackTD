@@ -33,6 +33,7 @@ func _process(_delta: float) -> void:
 				color = Color(0.122, 0.106, 0.039, 0.459)
 				create_tween().tween_property(self, "color", Color(0.122, 0.106, 0.039, 0.0), 0.4)
 			else:
+				$MarginContainer/VBoxContainer/Control/DeathWinMenu/MainMenuButton.grab_focus()
 				color = Color(0.122, 0.106, 0.039, 0.0)
 				create_tween().tween_property(self, "color", Color(0.122, 0.106, 0.039, 0.459), 0.4)
 			dwmenu.visible = not dwmenu.visible
@@ -59,7 +60,7 @@ func update_gui():
 			mouse_filter = Control.MOUSE_FILTER_STOP
 			set_process(false)
 			
-	wave_label.text = "Wave " + str(enemy_spawner.current_round + 1)
+	wave_label.text = "Wave " + str(enemy_spawner.current_round + (0 if enemy_spawner.is_in_break else 1))
 	
 	# 2. Update Tower Selection Highlight
 	if tower_placer:

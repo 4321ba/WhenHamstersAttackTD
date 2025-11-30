@@ -3,6 +3,9 @@ extends Node3D
 var main_scene = preload("res://scenes/main_scene.tscn")
 
 func _ready() -> void:
+	$CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/SfxCheckButton.button_pressed = not AudioServer.is_bus_mute(AudioServer.get_bus_index("Sfx"))
+	$CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/MusicCheckButton.button_pressed = Music.playing
+	
 	# 1. Instantiate the game scene
 	var background_world = main_scene.instantiate()
 	
@@ -61,8 +64,19 @@ func _on_quit_button_pressed() -> void:
 func _on_return_button_pressed() -> void:
 	$CanvasLayer/ColorRect/ControlsContainer.visible = false
 	$CanvasLayer/ColorRect/VBoxContainer.visible = true
+	$CanvasLayer/ColorRect/VBoxContainer/VBoxContainer/PlayButton.grab_focus()
 
 
 func _on_controls_button_pressed() -> void:
 	$CanvasLayer/ColorRect/ControlsContainer.visible = true
 	$CanvasLayer/ColorRect/VBoxContainer.visible = false
+	$CanvasLayer/ColorRect/ControlsContainer/ReturnButton.grab_focus()
+
+
+func _on_music_check_button_toggled(toggled_on: bool) -> void:
+	Music.playing = toggled_on
+
+
+func _on_sfx_check_button_toggled(toggled_on: bool) -> void:
+	var bus_idx = AudioServer.get_bus_index("Sfx")
+	AudioServer.set_bus_mute(bus_idx, not toggled_on)
