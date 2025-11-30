@@ -6,7 +6,6 @@ Thank you very much to Max Parata for the 3D models! They are available [here](h
 
 ## TODO
 
-- animáció (tornyok, ellenségek)
-- particleök (lövések, sebződések)
 - post processing
 - hangok
+- visszaállítani: kezdőpénz, gyorsítási sebesség, 0. kör (i v t)

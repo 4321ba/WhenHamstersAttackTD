@@ -10,6 +10,7 @@ extends Node3D
 
 @export_group("Visuals")
 @export var turret_visuals: Node3D # Drag the rotating part (Turret) here
+@export var impact_effect: PackedScene   # [NEW] Drag Explosion.tscn here (for Rocket towers)
 
 @export_group("Grid Settings")
 @export var walkable_tile_id: int = 0 # The ID of your Grass tile
@@ -20,10 +21,12 @@ var cooldown_timer: float = 0.0
 var current_grid_pos: Vector3i
 
 @onready var gridmap = $"/root/MainScene/GridMap"
+@onready var particles = $GPUParticles3D
 
 var range_indicator: MeshInstance3D
 
 func _ready() -> void:
+	$GPUParticles3D.reparent(turret_visuals)
 	# If no specific part is assigned, rotate the whole tower
 	#if not turret_visuals:
 	#	turret_visuals = self
@@ -136,6 +139,13 @@ func _shoot(target: Node3D):
 			if dist_to_target <= AOE_RANGE:
 				enemy.take_damage(damage * (AOE_RANGE - dist_to_target) / AOE_RANGE)
 			
+	particles.restart()
+	
+	if impact_effect:
+		var impact = impact_effect.instantiate()
+		get_tree().root.add_child(impact)
+		impact.global_position = target.global_position
+	
 	var recoil_distance = 0.15
 	var tween = create_tween()
 	tween.set_parallel(true) # Do everything at once

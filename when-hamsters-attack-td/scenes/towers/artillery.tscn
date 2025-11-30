@@ -21,3 +21,6 @@ mesh = ExtResource("2_qlmn4")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" index="0"]
 material_override = SubResource("StandardMaterial3D_brhcf")
 mesh = ExtResource("4_pgb12")
+
+[node name="GPUParticles3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.8, 0)
