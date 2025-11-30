@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=4 uid="uid://dccpnvupcvwcs"]
+[gd_scene load_steps=94 format=4 uid="uid://dccpnvupcvwcs"]
 
 [ext_resource type="Texture2D" uid="uid://ca0eiutb4ritm" path="res://models/Textures/Terrain.png" id="1_w2twt"]
 [ext_resource type="Script" uid="uid://cg2crk72kawtm" path="res://scenes/grid_map.gd" id="2_c1pb6"]
@@ -9,6 +9,7 @@
 [ext_resource type="ArrayMesh" uid="uid://bwrafmiivx8b4" path="res://models/Terrain/OBJ/Grass.obj" id="6_c16ls"]
 [ext_resource type="Script" uid="uid://du8prrjs63trs" path="res://scenes/health_and_money.gd" id="7_c16ls"]
 [ext_resource type="Script" uid="uid://dn4b07kkgn5ty" path="res://scenes/game_ui.gd" id="8_18nlu"]
+[ext_resource type="Shader" uid="uid://b8sw7g724ayoe" path="res://scenes/vignette.gdshader" id="9_6wevv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w2twt"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -22,6 +23,13 @@ background_mode = 2
 sky = SubResource("Sky_pw63i")
 tonemap_mode = 2
 glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/2 = 1.0
+glow_bloom = 0.1
+adjustment_enabled = true
+adjustment_brightness = 0.9
+adjustment_contrast = 1.1
+adjustment_saturation = 1.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2twt"]
 specular_mode = 2
@@ -925,6 +933,12 @@ metadata/_editor_source_scene = "res://scenes/terrain_pieces.tscn"
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18nlu"]
 albedo_texture = ExtResource("5_rt2n2")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e1cbu"]
+shader = ExtResource("9_6wevv")
+shader_parameter/alpha = 0.5
+shader_parameter/inner_radius = 0.6
+shader_parameter/outer_radius = 1.2
+
 [sub_resource type="LabelSettings" id="LabelSettings_18nlu"]
 font_size = 32
 font_color = Color(0.8013871, 0.030264014, 0.029295553, 1)
@@ -955,6 +969,7 @@ environment = SubResource("Environment_7ykc4")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.9554186, 0.0771461, -0.28499794, -0.19562657, 0.55757934, 0.8067438, 0.22114608, 0.82653123, -0.5176298, 0, 0, 0)
+light_color = Color(0.9372549, 0.9019608, 0.69803923, 1)
 shadow_enabled = true
 
 [node name="GridMap" type="GridMap" parent="."]
@@ -996,6 +1011,19 @@ mesh = ExtResource("6_c16ls")
 [node name="HealthAndMoney" type="Node" parent="."]
 script = ExtResource("7_c16ls")
 start_money = 48
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+material = SubResource("ShaderMaterial_e1cbu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -81,16 +81,22 @@ func _create_3d_preview(scene: PackedScene) -> SubViewportContainer:
 	svc.custom_minimum_size = Vector2(120, 120)
 	svc.pivot_offset = Vector2(60, 60) # Pivot center for scaling
 	
+	# [FIX] Enable Stretch: Matches internal resolution to UI size (Sharper)
+	svc.stretch = true 
+	
+	# [OPTIONAL] For Voxel games, Nearest Neighbor often looks cleaner than Linear blur
+	svc.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	
 	# 2. Viewport (The 3D World)
 	var sv = SubViewport.new()
 	sv.own_world_3d = true # Crucial: Separate world so enemies don't walk here
 	sv.transparent_bg = true
-	sv.size = Vector2(120, 120)
+	#sv.size = Vector2(120, 120)
 	svc.add_child(sv)
 	
 	# 3. Camera & Light
 	var cam = Camera3D.new()
-	cam.position = Vector3(0, 2, 2.5) # Look down-ish
+	cam.position = Vector3(2, 2, 2) # Look down-ish
 	cam.look_at_from_position(cam.position, Vector3.ZERO)
 	sv.add_child(cam)
 	
