@@ -15,31 +15,34 @@ var is_win = false
 # ' ' = Wait (Delay)
 
 var rounds: Array[String] = [
-	"i v t",
+#	"v",
+#	"iiiiiiii    tttttttt    vvvvvvvvvvvvvvvvvvvvv",
+#	"tttttvvvvvvvvvvvvvvvvvvvvv",
+#	"i v t",
 	# --- PHASE 1: RECRUITMENT (Rounds 1-5) ---
 	"i   i   i   i   i",                  # Round 1: Intro (50 Total HP)
 	"i i i i i i",                         # Round 2: Tighter spacing
 	"i i i   i i i   i i i",               # Round 3: Squads
-	"i i i i i i i i i i",                 # Round 4: Constant stream (100 HP)
+	"i i i i iiiiii",                 # Round 4: Constant stream (100 HP)
 	"i i i   t   i i i",                   # Round 5: First Tank (50 HP sponge) - Space needed for infantry behind
 
 	# --- PHASE 2: ARMOR (Rounds 6-10) ---
 	"t   t   t",                           # Round 6: Tank Squad (150 HP)
-	"i i i i   t   i i i i",               # Round 7: Tank protecting rear guard
-	"t   i i   t   i i   t",               # Round 8: Mixed Slow/Fast
+	"i i i i   t   i i i i tt",               # Round 7: Tank protecting rear guard
+	"t   ii t   iiiiii   tt",               # Round 8: Mixed Slow/Fast
 	"t   t   t   t   t",                   # Round 9: Heavy Armor Column
 	"i i i   v   i i i",                   # Round 10: First VTB (120 HP Boss!) - Big difficulty spike
 
 	# --- PHASE 3: ESCALATION (Rounds 11-15) ---
-	"v   v   v",                           # Round 11: VTB Squad (360 HP)
+	"v             v",                           # Round 11: VTB Squad (360 HP)
+	"t i t i t i t i t i",                 # Round 17: Slow/Fast alternate (Spacing critical)
 	"t   t   v   t   t",                   # Round 12: VTB protected by Tanks
-	"i i i i i i i i i i i i",             # Round 13: Mass Swarm (Speed check)
-	"v   i i i   v   i i i",               # Round 14: VTBs leading infantry charges
-	"t   t   t   v   v",                   # Round 15: Heavy mix
+	"t t t t t t t",             # Round 13: Mass Swarm (Speed check)
+	"v   i i i   v   iiiiiiii",               # Round 14: VTBs leading infantry charges
+	"t   t   t   v   vv",                   # Round 15: Heavy mix
 
 	# --- PHASE 4: THE GRIND (Rounds 16-20) ---
-	"v v v v v",                           # Round 16: VTB Rush (600 HP)
-	"t i t i t i t i t i",                 # Round 17: Slow/Fast alternate (Spacing critical)
+	"v  v  v",                           # Round 16: VTB Rush (600 HP)
 	"v   v   v   t   t   t",               # Round 18: Fast vanguard, Slow rearguard
 	"t   t   t   t   t   t   t",           # Round 19: Tank Wall
 	"v i v i v i v i v i",                 # Round 20: High Damage Speed Wave
@@ -47,9 +50,8 @@ var rounds: Array[String] = [
 	# --- PHASE 5: ELITE WAVES (Rounds 21-25) ---
 	"t   v   t   v   t   v",               # Round 21: Heavy Alternating
 	"v v v   v v v",                       # Round 22: VTB Clusters
-	"t t t   v v   t t t",                 # Round 23: Armored Sandwich
+	"t t t   vvvv   t t t",                 # Round 23: Armored Sandwich
 	"v v v v v v v v",                     # Round 24: 8 VTBs (960 HP)
-	"i i i i i i i i i i i i i i i i",     # Round 25: Massive Swarm + 1 VTB hidden at end
 	
 	# --- PHASE 6: TOTAL CHAOS (Rounds 26-30) ---
 	"t t t t   v v v v",                   # Round 26: The Wall & The Breakers
@@ -72,13 +74,39 @@ var wave_timer: float = 0.0
 var wave_string_index: int = 0
 var current_wave_string: String = ""
 
+
+var map_changing = false
+var trust_fall_timer: float = 0.0
+func _on_map_changed(_map_rid):
+	print("Map changed")
+	#print(_map_rid)
+	# Trust momentum for 0.1s (approx 6 physics frames)
+	# This bridges the gap while the NavMesh is rebuilding
+	trust_fall_timer = 0.2 * Engine.time_scale # we also need this for safety
+	map_changing = not map_changing # it looks like every change is 2 emissions
+
 func _ready() -> void:
+	NavigationServer3D.map_changed.connect(_on_map_changed)
 	# Initialize the first break
 	start_break()
 
+func _exit_tree() -> void:
+	Engine.time_scale = 1.0
+
 func _physics_process(delta: float) -> void:
+	
+	if trust_fall_timer > 0:
+		trust_fall_timer -= delta
+	else:
+		map_changing = false
+	
+	#if map_changing:
+	#	print("Changing")
+	#else:
+	#	print("nochange")
+	
 	if Input.is_action_just_pressed("ui_focus_next"):
-		Engine.time_scale = 0.25#4.0
+		Engine.time_scale = 4.0#0.25
 	if Input.is_action_just_released("ui_focus_next"):
 		Engine.time_scale = 1.0
 	

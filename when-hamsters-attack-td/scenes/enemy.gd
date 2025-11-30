@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @onready var nav_agent = $NavigationAgent3D
+@onready var enemy_spawner = $"/root/MainScene/EnemySpawner"
 
 @export var speed = 3.0
 @export var max_health = 10.0
@@ -37,16 +38,24 @@ func _process(delta: float) -> void:
 	#	_reset_pose(delta)
 
 
+var prev_velocity = Vector3(0,0,0)
+
 func _physics_process(_delta: float) -> void:
 	# If the agent is hopelessly lost (or fallen), snap them back to the mesh
 	#if not nav_agent.is_target_reachable():
 	#	var valid_point = NavigationServer3D.map_get_closest_point(get_world_3d().navigation_map, global_position)
 	#	global_position = valid_point
 	
-	var new_velocity = (nav_agent.get_next_path_position() - global_position).normalized() * speed
+	var new_velocity: Vector3
+	if enemy_spawner.map_changing:
+		new_velocity = prev_velocity
+	else:
+		new_velocity = (nav_agent.get_next_path_position() - global_position).normalized() * speed
 	
 	#nav_agent.velocity = new_velocity
 	velocity = new_velocity
+	#print(enemy_spawner.map_changing, velocity)
+	prev_velocity = velocity
 	if velocity:
 		look_at(global_position + velocity)
 	move_and_slide()
@@ -84,7 +93,8 @@ func die():
 	set_process(false)
 	set_physics_process(false)
 	remove_from_group("enemies")
-	
+	$CollisionShape3D.set_deferred("disabled", true)
+
 	var mesh_to_animate = $MeshInstance3D
 	
 	var tween = create_tween()

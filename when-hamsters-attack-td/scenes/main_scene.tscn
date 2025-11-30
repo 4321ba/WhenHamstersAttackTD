@@ -1010,7 +1010,6 @@ mesh = ExtResource("6_c16ls")
 
 [node name="HealthAndMoney" type="Node" parent="."]
 script = ExtResource("7_c16ls")
-start_money = 48
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 0
