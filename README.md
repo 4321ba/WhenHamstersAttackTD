@@ -12,8 +12,6 @@ Thank you very much to
 - [When Penguins Attack TD](https://armorgames.com/play/4600/when-penguins-attack-td) for the inspiration and the [music](https://www.youtube.com/watch?v=l5GXXbXB8MU)
 - Freesound_community for the sound effects: [shooting](https://pixabay.com/sound-effects/gunner-sound-43794/), [explosion](https://pixabay.com/sound-effects/medium-explosion-40472/) and [death sound](https://pixabay.com/sound-effects/hamster-in-a-jar-31801/)
 
-## TODO
+## Documentation
 
-- release for GitHub
-- documentation
-- playtesting
+You can find the documentation [here](documentation.md).
