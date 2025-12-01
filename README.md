@@ -1,5 +1,7 @@
 # When Hamsters Attack TD
 
+![Screenshot of the game](screenshot.png)
+
 ## Playing
 
 You can download the game from the [GitHub Releases](https://github.com/4321ba/WhenHamstersAttackTD/releases) page of the repository. It is available for Linux and Windows, you don't need to install it. Extract it and run it.
