@@ -39,4 +39,4 @@ Az utolsó körhöz valószínűleg készíteni kell egy kis labirintust az elle
 - Első kör ne induljon el automatikusan (esetleg a többi se)
 - Alul kiválasztható tornyok kattinthatóak legyenek, vagy legalább nyeljék el a kattintást
 - Az a kör, ahol 2 vtb jön (kb 10-11.), legyen később (ha egy vtb-t nem tud a setup lelőni, akkor az az előző illetve abban a körben nagyon sok sebzést jelent)
-
+- A kezdőblokkra úgy tűnik, enged tornyot lerakni, ezt kijavítani
